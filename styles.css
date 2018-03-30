@@ -1,0 +1,54 @@
+/* font-family: 'Eczar', serif; */
+/* font-family: 'Gentium Basic', serif; */
+
+/* Page Wrapper/Overall Styling */
+body {
+  background-color: black;
+  color: white;
+}
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Eczar', serif;
+  letter-spacing: 3px;
+}
+p, a, label, input, button {
+  font-family: 'Gentium Basic', serif;
+}
+.page-wrapper {
+  border: 2px solid red;
+}
+/* END Page Wrapper/Overall Styling */
+
+/* Search Bar Styling */
+#search-wrapper {
+  border: 1px solid red;
+  margin: 10px 10px;
+}
+input, button {
+  font-size: 30px;
+}
+#search-input, 
+#search-submit-button {
+  display: flex;
+  justify-content: center;
+}
+input {
+  margin-bottom: 15px;
+}
+button {
+  padding: 5px 20px 5px 20px;
+}
+/* END Search Bar Styling */
+
+/* Planets Wrapper Styling */
+.planets-wrapper {
+  border: 1px solid red;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+#main-header {
+  font-size: 100px;
+  text-align: center;
+  margin: 0px 10px;
+}
+/* END Planets Wrapper Styling */
