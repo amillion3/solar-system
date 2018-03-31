@@ -14,12 +14,11 @@ p, a, label, input, button {
   font-family: 'Gentium Basic', serif;
 }
 .page-wrapper {
-  border: 2px solid red;
+
 }
 /* END Page Wrapper/Overall Styling */
 /* Search Bar Styling */
 #search-wrapper {
-  border: 1px solid red;
   margin: 10px 10px;
 }
 input, button {
@@ -39,7 +38,6 @@ button {
 /* END Search Bar Styling */
 /* Planets Wrapper Styling */
 #planets-wrapper {
-  border: 1px solid red;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -48,11 +46,11 @@ button {
   font-size: 100px;
   text-align: center;
   margin: 0px 10px;
+  padding-bottom: 10px;
 }
 /* END Planets Wrapper Styling */
 /* Planet Card Styling */
 .planet-card{
-  border: 1px solid red;
   line-height: 1.618;
   display: flex;
   width: 30vw;
@@ -65,7 +63,7 @@ button {
 .planet-card img {
   max-width: 100%;
 }
-.hide{
+.hide {
   display: none;
 }
 /* END Planet Card Styling */
