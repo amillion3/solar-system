@@ -49,7 +49,7 @@ const showBigPlanetCard = () => {  // Shows the big planet card
 
 const hideBigPlanetCard = () => {  // Hides the big planet card
   const bigPlanetCardToHide = document.getElementById("planet-full");
-  bigPlanetCardToHide.classList.add('hide');
+  bigPlanetCardToHide.classList.add('super-hide');
 };
 
 const planetCardsMouseEnter = (e) => {  //Show image, hide text
@@ -71,7 +71,7 @@ const planetCardsClick = (e) => {  //Click on a mini-planet card
 const bigPlanetCardXClick = (e) => {
   sendXHR("default");
   hideBigPlanetCard();
-}
+};
 
 const createEventListenerMiniCards = () => {
   const miniPlanetCards = document.getElementsByClassName("planet-card");
@@ -184,7 +184,7 @@ const sendXHRmini = (input) => {
 
 const sendXHR = (input) => {
   const requestData = new XMLHttpRequest();
-  if (input === "defaultdefaultdefaultdefault") {  // Always builds Mini-planet cards
+  if (input === "default") {  // Always builds Mini-planet cards
     requestData.addEventListener('load', XHRsuccessMini);
   } else {  //Big planet card
     //call anonymous function to get JSON and then identify
