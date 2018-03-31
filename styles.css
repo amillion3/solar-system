@@ -67,3 +67,51 @@ button {
   display: none;
 }
 /* END Planet Card Styling */
+/* Planets Full Size Styling */
+#planet-full {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+.super-hide {
+  display: none !important;
+  /* the #planet-full above is overriding my display:none */
+  /* Perhaps add this CSS prop via JS on click of mini-planets? */
+}
+.close-full-icon img {
+  padding: 10px 10px 0px 0px;
+  max-width: 48px;
+  max-height: 48px;
+  float: right;
+}
+.planet-full-info {
+  margin: 0px;
+  padding: 0px;
+}
+.planet-full-info h1 {
+  font-size: 60px;
+  letter-spacing: 10px;
+  text-align: center;
+  margin: 0px;
+  padding: 0px;
+}
+.planet-full-main {
+  margin: 0 auto;
+  display: block;
+}
+.planet-full-description {
+  /* border: 1px solid blue; */
+  font-size: 18px;
+  line-height: 1.618;
+  margin: 0 auto;
+  width: 50%;
+}
+.planet-full-description p:first-of-type {
+  padding: 0 0 10px 0;
+  border-bottom: 1px solid darkblue;
+}
+.center-text {
+  text-align: center;
+}
+/* Planets Full Size Styling */
