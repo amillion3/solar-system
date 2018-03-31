@@ -1,11 +1,23 @@
-const planetCardsMouseEnter = (e) => {
-  const showImage = e.target.childNodes[3].classList.remove("hide");
-  const hideText = e.target.childNodes[1].classList.add("hide");
+const hideAllPlanetCards = (e) => {  // Hide all mini-planet cards
+  const getChildren = e.target.parentNode.parentNode.children;
+  for (let i = 0; i < getChildren.length; i++) {
+    getChildren[i].classList.add("hide");
+  }
 };
 
-const planetCardsMouseLeave = (e) => {
-  const hideImage = e.target.childNodes[3].classList.add("hide");
-  const showText = e.target.childNodes[1].classList.remove("hide");
+const planetCardsMouseEnter = (e) => {  //Show image, hide text
+  e.target.childNodes[3].classList.remove("hide");
+  e.target.childNodes[1].classList.add("hide");
+};
+
+const planetCardsMouseLeave = (e) => {  //Hide image, show text
+  e.target.childNodes[3].classList.add("hide");
+  e.target.childNodes[1].classList.remove("hide");
+};
+
+const planetCardsClick = (e) => {  //Click on a mini-planet card
+  hideAllPlanetCards(e);
+  //call build Big planet card
 };
 
 const createEventListenerMiniCards = () => {
@@ -13,6 +25,7 @@ const createEventListenerMiniCards = () => {
   for (let i = 0; i < miniPlanetCards.length; i++) {
     miniPlanetCards[i].addEventListener('mouseenter', planetCardsMouseEnter);
     miniPlanetCards[i].addEventListener('mouseleave', planetCardsMouseLeave);
+    miniPlanetCards[i].addEventListener('click', planetCardsClick);
   }
 };
 
