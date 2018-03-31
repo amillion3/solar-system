@@ -1,3 +1,21 @@
+const planetCardsMouseEnter = (e) => {
+  const showImage = e.target.childNodes[3].classList.remove("hide");
+  const hideText = e.target.childNodes[1].classList.add("hide");
+};
+
+const planetCardsMouseLeave = (e) => {
+  const hideImage = e.target.childNodes[3].classList.add("hide");
+  const showText = e.target.childNodes[1].classList.remove("hide");
+};
+
+const createEventListenerMiniCards = () => {
+  const miniPlanetCards = document.getElementsByClassName("planet-card");
+  for (let i = 0; i < miniPlanetCards.length; i++) {
+    miniPlanetCards[i].addEventListener('mouseenter', planetCardsMouseEnter);
+    miniPlanetCards[i].addEventListener('mouseleave', planetCardsMouseLeave);
+  }
+};
+
 const printToDom = (domString,divId) => {
   document.getElementById(divId).innerHTML = domString;
 };
@@ -12,6 +30,7 @@ const buildPlanetCards = (input) => {
               </div>`;
   }
   printToDom(domOutput,"planets-wrapper");
+  createEventListenerMiniCards();
 };
 
 function XHRfailure() {
