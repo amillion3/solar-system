@@ -1,3 +1,7 @@
+const printToDom = (domString,divId) => {
+  document.getElementById(divId).innerHTML = domString;
+};
+
 const buildPlanetCards = (input) => {
   let domOutput = "";
   for (let i = 0; i < input.length; i++) {
