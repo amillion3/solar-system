@@ -1,3 +1,33 @@
+const createEventListenerSearchButton = () => {
+  const button = document.getElementById("search-submit-button");
+  button.addEventListener('click', getUserSearchText);
+};
+
+const getUserSearchText = (e) => {
+  userInputRaw = e.target.parentNode.parentNode.childNodes[1].childNodes[2].nextElementSibling.value;
+  processUserSearchText(userInputRaw);
+};
+
+const processUserSearchText = (input) => {
+  input = input.replace(/[^A-Za-z\s]/g, "").toLowerCase();
+  var inputArr = input.split(" ");
+  console.log(inputArr);
+  compareUserSearchText(inputArr);
+};
+
+const compareUserSearchText = (inputArray) => {
+  // - compare array[0] against all JSON,
+  //  - compare array[1] against all JSON...
+  //     - if no match, display a message, 'no matches'
+  //     - if match, remove all cards, add matched card
+  //     to the 'planets-wrapper'
+  //       - stretch goal, add a reset button to the div
+  //       - stretch goal, only search planet OR descriptions
+  sendXHRmini(inputArray);
+};
+
+
+
 const hideAllPlanetCards = (e) => {  // Hide all mini-planet cards
   const getChildren = e.target.parentNode.parentNode.children;
   for (let i = 0; i < getChildren.length; i++) {
@@ -55,9 +85,6 @@ const createEventListenerMiniCards = () => {
 const createEventListenerPlanetCardX = () => {
   const bigPlanetCards = document.getElementsByClassName("close-full-icon");
   bigPlanetCards[0].addEventListener('click', bigPlanetCardXClick);
-  // for (let i = 0; i < bigPlanetCards.length; i++) {
-  //   bigPlanetCards[i].addEventListener('click', bigPlanetCardXClick);
-  // }
 };
 
 const printToDom = (domString,divId) => {
@@ -65,6 +92,7 @@ const printToDom = (domString,divId) => {
 };
 
 const buildPlanetCards = (input) => {  //Mini-planet cards
+  console.log("buildPlanetCards ", input)
   let domOutput = "";
   for (let i = 0; i < input.length; i++) {
     domOutput += `
@@ -114,12 +142,49 @@ function XHRsuccessMini() {
 function XHRsuccessBig() {
   const data = JSON.parse(this.responseText);
   buildBigPlanetCard(data.planets);
-
 }
+
+const sendXHRmini = (input) => {
+  const requestData = new XMLHttpRequest();
+  if (typeof(input) === "object") {  //basically, if its from input box
+    // search through JSON and then (maybe) print 1- 8 cards
+    
+    requestData.addEventListener('load', function() {
+      const data = JSON.parse(this.responseText);
+      for (let i = 0; i < data.planets.length; i++) {
+        if (data.planets[i].name.toLowerCase().includes(input[0]) ||
+            data.planets[i].description.toLowerCase().includes(input[0])) {
+          console.log("MATCH!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+          buildPlanetCards(data.planets[i]);
+          //buildBigPlanetCard(data.planets[i]);
+        }
+      }
+    });
+  } else {
+    requestData.addEventListener('load', XHRsuccessMini);
+  }
+  // if (input === "default") {  // Always builds Mini-planet cards
+  //   requestData.addEventListener('load', XHRsuccessMini);
+  // } else {  //Big planet card
+  //   //call anonymous function to get JSON and then identify
+  //   //  only the planet that was clicked and print it
+  //   requestData.addEventListener('load', function() {
+  //     const data = JSON.parse(this.responseText);
+  //     for (let i = 0; i < data.planets.length; i++) {
+  //       if (data.planets[i].name === input) {
+  //         buildBigPlanetCard(data.planets[i]);
+  //       }
+  //     }
+  //   });
+  // }
+  requestData.addEventListener('error', XHRfailure);
+  requestData.open("GET", "/db/planets.json");
+  requestData.send();
+};
 
 const sendXHR = (input) => {
   const requestData = new XMLHttpRequest();
-  if (input === "default") {  // Always builds Mini-planet cards
+  if (input === "defaultdefaultdefaultdefault") {  // Always builds Mini-planet cards
     requestData.addEventListener('load', XHRsuccessMini);
   } else {  //Big planet card
     //call anonymous function to get JSON and then identify
@@ -137,4 +202,9 @@ const sendXHR = (input) => {
   requestData.open("GET", "/db/planets.json");
   requestData.send();
 };
-sendXHR("default");
+
+const startUpApplication = () => {
+  sendXHRmini("default"); //builds mini-planet cards
+  createEventListenerSearchButton();
+};
+startUpApplication();

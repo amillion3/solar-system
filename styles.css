@@ -24,8 +24,8 @@ p, a, label, input, button {
 input, button {
   font-size: 30px;
 }
-#search-input, 
-#search-submit-button {
+#search-input,
+#search-button-div {
   display: flex;
   justify-content: center;
 }
