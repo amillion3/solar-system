@@ -44,7 +44,7 @@ const showAllPlanetCards = (e) => {  // Show all mini-planet cards
 
 const showBigPlanetCard = () => {  // Shows the big planet card
   const bigPlanetCardToShow = document.getElementById("planet-full");
-  bigPlanetCardToHide.classList.remove("super-hide");
+  bigPlanetCardToShow.classList.remove("super-hide");
 };
 
 const hideBigPlanetCard = () => {  // Hides the big planet card
@@ -88,11 +88,11 @@ const createEventListenerPlanetCardX = () => {
 };
 
 const printToDom = (domString,divId) => {
-  document.getElementById(divId).innerHTML += domString;
+  document.getElementById(divId).innerHTML = domString;
 };
 
 const buildPlanetCards = (input) => {  //Mini-planet cards
-  console.log("buildPlanetCards ", input)
+  console.log("buildPlanetCards ", input);
   let domOutput = "";
   for (let i = 0; i < input.length; i++) {
     domOutput += `
@@ -126,8 +126,9 @@ const buildBigPlanetCard = (input) => {  //BIG planet card
         <p class="center-text">Largest moon: ${input.nameOfLargestMoon}</p>
       </div>
     </div>`;
-  printToDom(domOutput,"planet-full");
-  createEventListenerPlanetCardX();
+    showBigPlanetCard();
+    printToDom(domOutput,"planet-full");
+    createEventListenerPlanetCardX();
 };
 
 function XHRfailure() {
