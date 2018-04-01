@@ -5,32 +5,24 @@ const createEventListenerSearchButton = () => {
 
 const getUserSearchText = (e) => {
   userInputRaw = e.target.parentNode.parentNode.childNodes[1].childNodes[2].nextElementSibling.value;
+  e.target.parentNode.parentNode.childNodes[1].childNodes[2].nextElementSibling.value = "";  //resets input box to empty string
   processUserSearchText(userInputRaw);
 };
 
 const processUserSearchText = (input) => {
   input = input.replace(/[^A-Za-z\s]/g, "").toLowerCase();
   var inputArr = input.split(" ");
-  console.log(inputArr);
-  compareUserSearchText(inputArr);
+  sendXHRmini(inputArr);
 };
 
-const compareUserSearchText = (inputArray) => {
-  // - compare array[0] against all JSON,
-  //  - compare array[1] against all JSON...
-  //     - if no match, display a message, 'no matches'
-  //     - if match, remove all cards, add matched card
-  //     to the 'planets-wrapper'
-  //       - stretch goal, add a reset button to the div
-  //       - stretch goal, only search planet OR descriptions
-  sendXHRmini(inputArray);
-};
-
-
-
+// const hideAllPlanetCards = (e) => {  // Hide all mini-planet cards
+//   const getChildren = document.getElementsByClassName("planet-card");
+//   for (let i = 0; i < getChildren.length; i++) {
+//     getChildren[i].remove();
+//   }
+// };
 const hideAllPlanetCards = (e) => {  // Hide all mini-planet cards
   const getChildren = document.getElementsByClassName("planet-card");
-  //const getChildren = e.target.parentNode.parentNode.children;
   for (let i = 0; i < getChildren.length; i++) {
     getChildren[i].classList.add("hide");
   }
@@ -146,44 +138,29 @@ function XHRsuccessBig() {
   buildBigPlanetCard(data.planets);
 }
 
+// will show ALL mini-planet cards,
+//  or will show 0-8 cards, based on user input
 const sendXHRmini = (input) => {
   const requestData = new XMLHttpRequest();
-  if (typeof(input) === "object") {  
-    //basically, if 'input' is from the searh box,
-    // search through JSON and then (maybe) print 1- 8 cards
-    requestData.addEventListener('load', function() {
-      const data = JSON.parse(this.responseText);
-      let matchedCards = [];
-      for (let i = 0; i < data.planets.length; i++) {
-        if (data.planets[i].name.toLowerCase().includes(input[0]) ||
-            data.planets[i].description.toLowerCase().includes(input[0])) {
-          console.log("MATCH!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
-          matchedCards.push(data.planets[i]);
-        }
-      }
-      // check for duplicates or an empty array
-      if (matchedCards.length > 0) {
-        hideAllPlanetCards();
-        buildPlanetCards(matchedCards);
-      }
-    });
-  } else {  // print all mini-planet cards
+  if (typeof(input) !== "object") { //prints all mini-planet cards
     requestData.addEventListener('load', XHRsuccessMini);
+  } else { //this is a SERACH request from the user
+      requestData.addEventListener('load', function() {
+        const data = JSON.parse(this.responseText);
+        let matchedCards = [];
+        for (let i = 0; i < data.planets.length; i++) {
+          if (data.planets[i].name.toLowerCase().includes(input[0]) ||
+              data.planets[i].description.toLowerCase().includes(input[0])) {
+            matchedCards.push(data.planets[i]);
+          }
+        }
+        if (matchedCards.length > 0) {
+          hideAllPlanetCards();
+          buildPlanetCards(matchedCards);
+          //TO DO:   ADD A RESET BUTTON
+        }
+      });
   }
-  // if (input === "default") {  // Always builds Mini-planet cards
-  //   requestData.addEventListener('load', XHRsuccessMini);
-  // } else {  //Big planet card
-  //   //call anonymous function to get JSON and then identify
-  //   //  only the planet that was clicked and print it
-  //   requestData.addEventListener('load', function() {
-  //     const data = JSON.parse(this.responseText);
-  //     for (let i = 0; i < data.planets.length; i++) {
-  //       if (data.planets[i].name === input) {
-  //         buildBigPlanetCard(data.planets[i]);
-  //       }
-  //     }
-  //   });
-  // }
   requestData.addEventListener('error', XHRfailure);
   requestData.open("GET", "/db/planets.json");
   requestData.send();
