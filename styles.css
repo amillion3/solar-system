@@ -46,7 +46,8 @@ button {
   font-size: 100px;
   text-align: center;
   margin: 0px 10px;
-  padding-bottom: 10px;
+  padding-bottom: 00px;
+  border-bottom: 1px solid rgb(20, 20, 20);
 }
 /* END Planets Wrapper Styling */
 /* Planet Card Styling */
@@ -61,7 +62,7 @@ button {
   align-items: center;
 }
 .planet-card img {
-  max-width: 100%;
+  max-width: 70%;
 }
 .hide {
   display: none;
