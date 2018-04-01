@@ -29,7 +29,8 @@ const compareUserSearchText = (inputArray) => {
 
 
 const hideAllPlanetCards = (e) => {  // Hide all mini-planet cards
-  const getChildren = e.target.parentNode.parentNode.children;
+  const getChildren = document.getElementsByClassName("planet-card");
+  //const getChildren = e.target.parentNode.parentNode.children;
   for (let i = 0; i < getChildren.length; i++) {
     getChildren[i].classList.add("hide");
   }
@@ -147,21 +148,26 @@ function XHRsuccessBig() {
 
 const sendXHRmini = (input) => {
   const requestData = new XMLHttpRequest();
-  if (typeof(input) === "object") {  //basically, if its from input box
+  if (typeof(input) === "object") {  
+    //basically, if 'input' is from the searh box,
     // search through JSON and then (maybe) print 1- 8 cards
-    
     requestData.addEventListener('load', function() {
       const data = JSON.parse(this.responseText);
+      let matchedCards = [];
       for (let i = 0; i < data.planets.length; i++) {
         if (data.planets[i].name.toLowerCase().includes(input[0]) ||
             data.planets[i].description.toLowerCase().includes(input[0])) {
           console.log("MATCH!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
-          buildPlanetCards(data.planets[i]);
-          //buildBigPlanetCard(data.planets[i]);
+          matchedCards.push(data.planets[i]);
         }
       }
+      // check for duplicates or an empty array
+      if (matchedCards.length > 0) {
+        hideAllPlanetCards();
+        buildPlanetCards(matchedCards);
+      }
     });
-  } else {
+  } else {  // print all mini-planet cards
     requestData.addEventListener('load', XHRsuccessMini);
   }
   // if (input === "default") {  // Always builds Mini-planet cards
