@@ -86,10 +86,19 @@ const buildBigPlanetCard = (input) => {  //BIG planet card
         <h1>${input.name}</h1>
         <img class="planet-full-main" src="${input.imageURL}">
         <div class="planet-full-description">
-        <p>${input.description}</p> <!-- Bottom border -->
-        <p class="center-text">Gas planet? ${input.isGasPlanet}</p>
-        <p class="center-text">Number of moons: ${input.numberOfMoons}</p>
-        <p class="center-text">Largest moon: ${input.nameOfLargestMoon}</p>
+        <p>${input.description}</p> <!-- Bottom border -->`;
+        if (input.isGasPlanet === true) {
+          domOutput += `<p class="center-text">${input.name} is a gas planet</p>`;
+        } else {
+          domOutput += `<p class="center-text">${input.name} is not a gas planet</p>`;
+        }
+        if (input.numberOfMoons < 1) {
+          domOutput += `<p class="center-text">No moons</p>`;
+        } else {
+          domOutput += `<p class="center-text">Number of moons: ${input.numberOfMoons}</p>
+           <p class="center-text">Largest moon: ${input.nameOfLargestMoon}</p>`; }
+        domOutput += `
+          <p class="center-text"><a href="${input.wikiURL}" target="_blank">Wikipedia</a></p>
       </div>
     </div>`;
     showBigPlanetCard();
