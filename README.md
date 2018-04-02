@@ -26,9 +26,9 @@ Big planet card detailed information
 
 ![Big planet card detailed information](https://raw.githubusercontent.com/amillion3/solar-system/master/images/screenshots/BigPlanet-detail2.png)
 ___
-Full functioning search bar:
+Fully functioning search bar:
 
-![Full functioning search bar](https://raw.githubusercontent.com/amillion3/solar-system/master/images/screenshots/search.png)
+![Fully functioning search bar](https://raw.githubusercontent.com/amillion3/solar-system/master/images/screenshots/search.png)
 ___
 ## Running The Project
 1. Clone down this repo and CD into project.
